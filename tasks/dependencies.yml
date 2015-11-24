@@ -1,6 +1,10 @@
 ---
+- stat: path="{{deploy.project.python.my_env_path}}"
+  register: venvExists
+
 - name: Create the initial virtualenv
   command: virtualenv {{deploy.project.python.my_env_path}}
+  when: venvExists.stat is not defined
 
 - name: Install requirements
   pip: 
