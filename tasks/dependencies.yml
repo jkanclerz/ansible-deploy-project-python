@@ -1,0 +1,8 @@
+---
+- name: Create the initial virtualenv
+  command: virtualenv {{deploy.project.python.my_env_path}}
+
+- name: Install requirements
+  pip: 
+    requirements="{{deploy.project.python.requirements_path}}"
+    virtualenv="{{deploy.project.python.my_env_path}}"
