@@ -1,12 +1,12 @@
 ---
-- stat: path="{{deploy.project.python.my_env_path}}"
+- stat: path="{{deploy.project.root}}/releases/{{project_deploy_date.stdout}}/{{deploy.project.python.my_env_path}}"
   register: venvExists
 
 - name: Create the initial virtualenv
-  command: virtualenv {{deploy.project.python.my_env_path}}
-  when: venvExists.stat is not defined
+  command: virtualenv {{deploy.project.root}}/releases/{{project_deploy_date.stdout}}/{{deploy.project.python.my_env_path}}
+  when: venvExists.stat.exists == False
 
 - name: Install requirements
   pip: 
-    requirements="{{deploy.project.python.requirements_path}}"
-    virtualenv="{{deploy.project.python.my_env_path}}"
+    requirements="{{deploy.project.root}}/releases/{{project_deploy_date.stdout}}/{{deploy.project.python.requirements_path}}"
+    virtualenv="{{deploy.project.root}}/releases/{{project_deploy_date.stdout}}/{{deploy.project.python.my_env_path}}"
